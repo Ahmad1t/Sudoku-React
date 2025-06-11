@@ -1,0 +1,162 @@
+:root {
+  --bg: #f5f7fa;
+  --card-bg: #ffffff;
+  --primary: #5c6ac4;
+  --text: #2e3a59;
+  --cell-border: 1px solid #d1d5db;
+  --subgrid-border: 1px solid #444;
+  --highlight: #e0f7fa;
+  --conflict: #fbe4e6;
+  --board-border: 2px solid #333;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  max-width: 520px;
+  padding: 1rem;
+}
+
+.app-container {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.4rem;
+  color: var(--primary);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  margin: 1rem auto;
+  max-width: 450px;
+  background: transparent;
+  border: var(--board-border);
+  border-radius: 4px;
+}
+
+.cell {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--card-bg);
+  border: var(--cell-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+}
+
+.cell:nth-child(3n) {
+  border-right: var(--subgrid-border);
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: var(--subgrid-border);
+}
+
+.board > .cell:nth-child(n + 19):nth-child(-n + 27),
+.board > .cell:nth-child(n + 46):nth-child(-n + 54),
+.board > .cell:nth-child(n + 73):nth-child(-n + 81) {
+  border-bottom: var(--subgrid-border);
+}
+
+.board > .cell:nth-child(n + 28):nth-child(-n + 36),
+.board > .cell:nth-child(n + 55):nth-child(-n + 63) {
+  border-top: var(--subgrid-border);
+}
+
+.cell.prefilled {
+  background: #eef1fc;
+}
+
+.cell.prefilled input {
+  font-weight: bold;
+  color: var(--text);
+  cursor: default;
+}
+
+.cell.conflict {
+  background: var(--conflict);
+}
+
+.cell input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.4rem;
+  color: var(--text);
+  text-align: center;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cell input:focus {
+  background: var(--highlight);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.controls select,
+.controls button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.controls select {
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+.controls button:hover,
+.controls select:hover {
+  background: var(--primary-light);
+}
+
+.controls button:active,
+.controls select:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .controls select,
+  .controls button {
+    flex: 1 1 45%;
+  }
+}
